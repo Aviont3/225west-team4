@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { fetchWorkOrders, fetchAssets, fetchLocations } from './services/api.js';
 import Dashboard from './components/Dashboard.jsx';
+import WorkOrderDetail from './components/WorkOrderDetail.jsx';
 
 export default function App() {
   const [workOrders, setWorkOrders] = useState(null);
@@ -8,6 +9,7 @@ export default function App() {
   const [locations, setLocations] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [selectedWO, setSelectedWO] = useState(null);
 
   useEffect(() => {
     async function loadData() {
@@ -44,13 +46,28 @@ export default function App() {
         <h2>⚠️ Connection Error</h2>
         <p>{error}</p>
         <p style={{ fontSize: '0.9rem', opacity: 0.7, marginTop: 8 }}>
-          Make sure the backend is running on port 3001 and your .env credentials are set.
+          Make sure the backend is running on port 3001.
         </p>
       </div>
     );
   }
 
-  return <Dashboard workOrders={workOrders} assets={assets} locations={locations} />;
+  return (
+    <>
+      <Dashboard
+        workOrders={workOrders}
+        assets={assets}
+        locations={locations}
+        onSelectWorkOrder={setSelectedWO}
+      />
+      {selectedWO && (
+        <WorkOrderDetail
+          workOrder={selectedWO}
+          onClose={() => setSelectedWO(null)}
+        />
+      )}
+    </>
+  );
 }
 
 const styles = {

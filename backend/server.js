@@ -4,6 +4,7 @@ import cors from 'cors';
 import workordersRouter from './src/routes/workorders.js';
 import assetsRouter from './src/routes/assets.js';
 import locationsRouter from './src/routes/locations.js';
+import signalRouter from './src/routes/signal.js';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use('/api/workorders', workordersRouter);
 app.use('/api/assets', assetsRouter);
 app.use('/api/locations', locationsRouter);
+app.use('/api/signal', signalRouter);
 
 // Health check
 app.get('/api/health', (req, res) => {

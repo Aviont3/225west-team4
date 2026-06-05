@@ -4,7 +4,7 @@ import SeverityChart from './SeverityChart.jsx';
 import BuildingList from './BuildingList.jsx';
 import WorkOrderTable from './WorkOrderTable.jsx';
 
-export default function Dashboard({ workOrders, assets, locations }) {
+export default function Dashboard({ workOrders, assets, locations, onSelectWorkOrder }) {
   const nodes = workOrders?.nodes || [];
 
   return (
@@ -16,8 +16,11 @@ export default function Dashboard({ workOrders, assets, locations }) {
             225 West 24th School Portfolio — {nodes.length} work orders loaded
           </p>
         </div>
-        <div style={styles.timestamp}>
-          Last refreshed: {new Date().toLocaleString()}
+        <div style={styles.headerRight}>
+          <div style={styles.badge}>Challenge 1 + 2</div>
+          <div style={styles.timestamp}>
+            Last refreshed: {new Date().toLocaleString()}
+          </div>
         </div>
       </header>
 
@@ -32,7 +35,11 @@ export default function Dashboard({ workOrders, assets, locations }) {
         </div>
       </div>
 
-      <WorkOrderTable workOrders={nodes} />
+      <div style={styles.tableHint}>
+        💡 Click any work order to open the AI Copilot — submit observations, view enrichment, and verify closure.
+      </div>
+
+      <WorkOrderTable workOrders={nodes} onSelect={onSelectWorkOrder} />
     </div>
   );
 }
@@ -61,6 +68,19 @@ const styles = {
     color: '#71717a',
     marginTop: 4,
   },
+  headerRight: {
+    textAlign: 'right',
+  },
+  badge: {
+    background: '#1e3a5f',
+    color: '#93c5fd',
+    padding: '4px 10px',
+    borderRadius: 4,
+    fontSize: '0.75rem',
+    fontWeight: 600,
+    marginBottom: 6,
+    display: 'inline-block',
+  },
   timestamp: {
     fontSize: '0.85rem',
     color: '#52525b',
@@ -85,5 +105,15 @@ const styles = {
     borderRadius: 12,
     padding: 24,
     border: '1px solid #27272a',
+  },
+  tableHint: {
+    background: '#1a1a2e',
+    border: '1px solid #312e81',
+    borderRadius: 8,
+    padding: '10px 16px',
+    fontSize: '0.85rem',
+    color: '#a5b4fc',
+    marginBottom: 16,
+    textAlign: 'center',
   },
 };
