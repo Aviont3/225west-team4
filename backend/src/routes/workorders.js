@@ -15,9 +15,10 @@ router.get('/', async (req, res) => {
         totalCount
         nodes {
           id title description severity executionPriority createdAt updatedAt
+          locationAddress
           workOrderStage { name }
-          assets { id name status category }
-          locations { id locationName address }
+          workOrderAssets { asset { id name } }
+          location { id locationName address }
         }
       }
     }`;

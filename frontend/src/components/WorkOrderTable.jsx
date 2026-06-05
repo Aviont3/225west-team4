@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function WorkOrderTable({ workOrders, onSelect }) {
+export default function WorkOrderTable({ workOrders }) {
   const [filter, setFilter] = useState('all');
 
   const filtered = filter === 'all'
@@ -64,16 +64,12 @@ export default function WorkOrderTable({ workOrders, onSelect }) {
           </thead>
           <tbody>
             {filtered.slice(0, 50).map((wo) => (
-              <tr
-                key={wo.id}
-                style={styles.tr}
-                onClick={() => onSelect && onSelect(wo)}
-              >
+              <tr key={wo.id} style={styles.tr}>
                 <td style={styles.td}>
                   <p style={styles.woTitle}>{wo.title}</p>
                   {wo.description && (
                     <p style={styles.woDesc}>
-                      {wo.description.slice(0, 80)}{wo.description.length > 80 ? '...' : ''}
+                      {wo.description.slice(0, 100)}{wo.description.length > 100 ? '...' : ''}
                     </p>
                   )}
                 </td>
@@ -161,8 +157,6 @@ const styles = {
   },
   tr: {
     borderBottom: '1px solid #1f1f23',
-    cursor: 'pointer',
-    transition: 'background 0.15s',
   },
   td: {
     padding: '12px',
